@@ -1,44 +1,43 @@
 #include "mainwidget.h"
-#include "QWidget"
-#include "QPainter"
-#include "gamefield.h"
 
 MainWidget::MainWidget(QWidget* parent):
     QWidget(parent)
 {
     this->move(0,0);
-    this->setGeometry(0,0,300,300);
+    this->setGeometry(0,0,WIDTH, HEIGHT );
     field = new GameField();
-    startTimer(600);
+    count = 0;
 }
 
 void MainWidget::nextTact() {
-
-
-}
-
-void MainWidget::timerEvent(QTimerEvent *)
-{
     field->NextTact();
     update();
+
 }
 
 void MainWidget::draw() {
     QPainter painter;
 
-    painter.begin(this);
-    painter.drawText(QRect(400, 0, 70, 50), Qt::AlignCenter,"x =|" + QString::number(field->ball->pos.x())+"|");
-    QPen pen =  QPen(Qt::black);
-    QBrush brush = QBrush(QColor(0,255,0));
-    pen.setWidth(2);
+    QPixmap pixmap (WIDTH, HEIGHT);
 
-    painter.setPen(pen);
-    painter.drawRect(0,0,size().width(),size().height());
-    pen.setWidth(1);
+    painter.begin(&pixmap);
+    QPen pen =  QPen(Qt::black);
+    pen.setWidth(BORDER_WIDTH);
+
+    QBrush brush = QBrush(QColor(0,0,0));
+    painter.setBrush(brush);
+    painter.drawRect(0,0,WIDTH,HEIGHT);
+    pen.setWidth(BORDER_WIDTH);
+
+    brush = QBrush(QColor(0,255,0));
+    pen.setColor(QColor(0,255,0));
     painter.setPen(pen);
     painter.setBrush(brush);
     painter.drawEllipse(field->ball->pos,field->ball->radius,field->ball->radius);
-    painter.drawLine(298,0,298,300);
+    painter.end();
+
+    painter.begin(this);
+    painter.drawPixmap(0,0,WIDTH, HEIGHT ,pixmap);
     painter.end();
 }
 

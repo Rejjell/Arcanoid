@@ -23,6 +23,7 @@ HEADERS  += mainwindow.h \
     gamefield.h \
     ball.h \
     block.h \
-    mainwidget.h
+    mainwidget.h \
+    constants.h
 
 FORMS    += mainwindow.ui

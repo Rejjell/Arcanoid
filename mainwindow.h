@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include "mainwidget.h"
+#include "ui_mainwindow.h"
+#include "qlabel.h"
+#include "QTimer"
+#include "constants.h"
 
 namespace Ui {
 class MainWindow;

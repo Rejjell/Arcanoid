@@ -1,6 +1,7 @@
 #ifndef BALL_H
 #define BALL_H
 #include "QPoint"
+#include "constants.h"
 
 class Ball
 {
@@ -12,6 +13,7 @@ public:
 public:
     QPoint pos;
     int radius, dx,dy;
+    int clamp(int value);
 };
 
 #endif // BALL_H

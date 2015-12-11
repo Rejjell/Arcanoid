@@ -11,6 +11,7 @@ public:
     GameField();
     void NextTact();
 
+public:
     Ball* ball;
     Block** blocks;
 };

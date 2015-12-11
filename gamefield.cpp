@@ -2,10 +2,10 @@
 
 GameField::GameField()
 {
-    ball = new Ball(QPoint(37,20),10);
+    ball = new Ball(QPoint(290,290),10);
 
 }
 
 void GameField::NextTact() {
-    ball->move();
+    //ball->move();
 }
