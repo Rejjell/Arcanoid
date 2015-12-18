@@ -17,13 +17,15 @@ SOURCES += main.cpp\
     Ball.cpp \
     Block.cpp \
     GameField.cpp \
-    mainwidget.cpp
+    mainwidget.cpp \
+    collision.cpp
 
 HEADERS  += mainwindow.h \
     gamefield.h \
     ball.h \
     block.h \
     mainwidget.h \
-    constants.h
+    constants.h \
+    collision.h
 
 FORMS    += mainwindow.ui

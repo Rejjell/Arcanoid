@@ -4,6 +4,8 @@
 #include "ball.h"
 #include "block.h"
 #include "block.h"
+#include "QRect"
+#include "collision.h"
 
 class GameField
 {
@@ -13,7 +15,8 @@ public:
 
 public:
     Ball* ball;
-    Block** blocks;
+    QRect* blocks;
+    int blocks_count = 4;
 };
 
 #endif // GAMEFIELD_H
