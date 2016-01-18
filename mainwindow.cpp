@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->centralWidget = mainWidget;
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), mainWidget, SLOT(nextTact()));
-    timer->start(100/24);
+    timer->start(8*100/24);
 }
 
 MainWindow::~MainWindow()

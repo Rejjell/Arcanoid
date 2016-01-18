@@ -16,7 +16,7 @@ public:
 public:
     Ball* ball;
     QRect* blocks;
-    int blocks_count = 4;
+    int blocks_count = 5;
 };
 
 #endif // GAMEFIELD_H

@@ -38,6 +38,11 @@ bool Collision::check(Ball* ball, QRect block){
             ( prev_x > block.x() + block.width()) && (prev_y > block.y() + block.height())) {
         ball->dx *= -1;
         ball->dy *= -1;
+        /*float x = ballX - cornerX;
+         float y = ballY - cornerY;
+         float c = -2 * (ballDx * x + ballDy * y) / (x * x + y * y);
+         ballDx = ballDx + c * x;
+         ballDy = ballDy + c * y;*/
     } else {
         if (prev_y > block.y() && prev_y < block.y() + block.height())
             ball->dx *= -1;

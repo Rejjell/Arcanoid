@@ -6,8 +6,8 @@ Ball::Ball(QPoint _position, int _radius):
     pos(_position),
     radius(_radius)
 {
-     dx = 4;
-     dy = 2;
+     dx = 3;
+     dy = 3;
 }
 
 Ball::Ball(int x,int y, int _radius)

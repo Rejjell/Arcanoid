@@ -28,6 +28,12 @@ void MainWidget::draw() {
     painter.setBrush(brush);
     painter.drawRect(0,0,WIDTH,HEIGHT);
     pen.setWidth(BORDER_WIDTH);
+    brush.setColor(QColor(255,0,0));
+    painter.setBrush(brush);
+    for (int i=0;i<field->blocks_count;i++) {
+        painter.drawRect(field->blocks[i]);
+    }
+
 
     brush = QBrush(QColor(0,255,0));
     pen.setColor(QColor(0,255,0));
