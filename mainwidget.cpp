@@ -1,4 +1,5 @@
 #include "mainwidget.h"
+#include "iostream"
 
 MainWidget::MainWidget(QWidget* parent):
     QWidget(parent)
@@ -7,6 +8,7 @@ MainWidget::MainWidget(QWidget* parent):
     this->setGeometry(0,0,WIDTH, HEIGHT );
     field = new GameField();
     count = 0;
+    setFocus();
 }
 
 void MainWidget::nextTact() {
@@ -30,10 +32,13 @@ void MainWidget::draw() {
     pen.setWidth(BORDER_WIDTH);
     brush.setColor(QColor(255,0,0));
     painter.setBrush(brush);
-    for (int i=0;i<field->blocks_count;i++) {
-        painter.drawRect(field->blocks[i]);
-    }
 
+
+    QList<QRect>::iterator it = field->blocks->begin();
+    while (it != field->blocks->end()) {
+        painter.drawRect(*it);
+        it++;
+    }
 
     brush = QBrush(QColor(0,255,0));
     pen.setColor(QColor(0,255,0));
@@ -51,3 +56,23 @@ void MainWidget::paintEvent(QPaintEvent *event){
     draw();
 }
 
+void MainWidget::keyPressEvent( QKeyEvent * event )
+{
+    std::cout << "keyPressed" << std::endl;
+    std::cout << event->key() << std::endl;
+    if (event->key() == Qt::Key_Left )
+    {
+        field->movePlatformLeft();
+        std::cout << "Left pressed" << std::endl;
+    }
+
+    if (event->key() == Qt::Key_Right) {
+        field->movePlatformRight();
+        std::cout << "Right pressed" << std::endl;
+    }
+}
+
+void MainWidget::mousePressEvent(QMouseEvent *event) {
+    std::cout << "Mouse pressed" << std::endl;
+    setFocus();
+}

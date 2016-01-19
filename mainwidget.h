@@ -11,6 +11,7 @@
 #include "QPixmap"
 #include "QOpenGLWidget"
 #include "constants.h"
+#include "QKeyEvent"
 
 class MainWidget: public QWidget
 {
@@ -25,6 +26,8 @@ protected:
      void draw();
      GameField* field;
      int count;
+     virtual void  keyPressEvent(QKeyEvent *event);
+     void  mousePressEvent ( QMouseEvent * event );
 };
 
 #endif // MAINWIDGET_H
