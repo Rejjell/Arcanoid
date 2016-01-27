@@ -9,7 +9,6 @@ public:
     Collision();
     static void check(Ball* ball, Ball* ball_2);
     static bool check(Ball* ball, QRect block);
-    static bool isWork;
 };
 
 #endif // COLLISION_H

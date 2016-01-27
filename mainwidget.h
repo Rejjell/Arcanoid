@@ -18,6 +18,7 @@ class MainWidget: public QWidget
     Q_OBJECT
 public:
     MainWidget(QWidget *parent);
+    void restart();
 
 public slots:
     void nextTact();
@@ -28,6 +29,8 @@ protected:
      int count;
      virtual void  keyPressEvent(QKeyEvent *event);
      void  mousePressEvent ( QMouseEvent * event );
+     void  mouseMoveEvent(QMouseEvent *event);
+     void mouseReleaseEvent(QMouseEvent *);
 };
 
 #endif // MAINWIDGET_H

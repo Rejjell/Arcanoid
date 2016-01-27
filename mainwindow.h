@@ -20,6 +20,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void handleButton();
+
 private:
     Ui::MainWindow *ui;
     MainWidget *mainWidget;

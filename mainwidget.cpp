@@ -1,5 +1,6 @@
 #include "mainwidget.h"
 #include "iostream"
+#include <QDebug>
 
 MainWidget::MainWidget(QWidget* parent):
     QWidget(parent)
@@ -58,21 +59,51 @@ void MainWidget::paintEvent(QPaintEvent *event){
 
 void MainWidget::keyPressEvent( QKeyEvent * event )
 {
-    std::cout << "keyPressed" << std::endl;
+    qDebug() << "keyPressed";
     std::cout << event->key() << std::endl;
     if (event->key() == Qt::Key_Left )
     {
         field->movePlatformLeft();
-        std::cout << "Left pressed" << std::endl;
+        qDebug() << "Left pressed";
     }
 
     if (event->key() == Qt::Key_Right) {
         field->movePlatformRight();
-        std::cout << "Right pressed" << std::endl;
+        qDebug() << "Right pressed";
     }
 }
 
 void MainWidget::mousePressEvent(QMouseEvent *event) {
-    std::cout << "Mouse pressed" << std::endl;
+    qDebug() << "Mouse pressed";
+    QRect platform = (QRect) field->blocks->first();
+    int x_center = platform.x() + platform.width() / 2;
+    if (event->x() < x_center)
+        field->dir = GameField::LEFT;
+    else
+        field->dir = GameField::RIGHT;
+    field->dest_x = event->x();
     setFocus();
+}
+
+void MainWidget::mouseMoveEvent(QMouseEvent *event) {
+    qDebug() << "Mouse move";
+    if (event->buttons() & Qt::LeftButton) {
+    QRect platform = (QRect) field->blocks->first();
+    int x_center = platform.x() + platform.width() / 2;
+    if (event->x() < x_center)
+        field->dir = GameField::LEFT;
+    else
+        field->dir = GameField::RIGHT;
+    }
+    field->dest_x = event->x();
+}
+
+void MainWidget::mouseReleaseEvent(QMouseEvent *) {
+    field->dir = GameField::NONE;
+    field->dest_x = -1;
+}
+
+void MainWidget::restart() {
+    delete field;
+    field = new GameField();
 }

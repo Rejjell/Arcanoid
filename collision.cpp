@@ -11,11 +11,7 @@ void Collision::check(Ball* ball, Ball* ball_2){
 
 }
 
-bool Collision::isWork=true;
-
 bool Collision::check(Ball* ball, QRect block){
-    if (!isWork)
-        return false;
     bool dx_collide = false;
     bool dy_collide = false;
     if ((ball->pos.y() + ball->radius > block.y()) && (ball->pos.y()-ball->radius /*- ball->dy*/ < block.y() + block.height())

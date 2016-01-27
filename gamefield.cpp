@@ -16,12 +16,26 @@ GameField::GameField()
     //blocks->append(QRect(100, 100, 60,60));
 
 
-
 }
 
 void GameField::NextTact() {
-    QList<QRect>::iterator it = blocks->begin();
+    QRect platform = (QRect) blocks->first();
+    int x_center = platform.x() + platform.width() / 2;
 
+    if (dest_x>0 && dest_x < x_center)
+        movePlatformLeft();
+    if (dest_x>0 && dest_x > x_center)
+        movePlatformRight();
+
+/*
+    if (dir == GameField::direction::LEFT)
+        movePlatformLeft();
+
+    if (dir == GameField::direction::RIGHT)
+        movePlatformRight();
+*/
+
+    QList<QRect>::iterator it = blocks->begin();
     while (it != blocks->end()) {
         Collision::check(ball,*it);
         it++;
@@ -41,4 +55,9 @@ void GameField::movePlatformRight() {
     QRect newPlatform(platform.x() + platformDx, platform.y(), platform.width(), platform.height());
     blocks->replace(0, newPlatform);
     printf("%d %d\n",blocks->first().x(), blocks->first().y());
+}
+
+GameField::~GameField() {
+    delete ball;
+    delete blocks;
 }
