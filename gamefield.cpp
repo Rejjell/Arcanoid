@@ -5,8 +5,12 @@ GameField::GameField()
     ball = new Ball(QPoint(50,50),10);
 
     blocks = new QList<QRect>;
+    platforms = new QList<QRect>;
 
-    blocks->append(QRect(130,290,40,10));
+    platforms->append(QRect(130,290,40,10));
+    platforms->append(QRect(130,0,40,10));
+
+    //blocks->append(QRect(130,290,40,10));
     blocks->append(QRect(-5,0,5,HEIGHT));
     blocks->append(QRect(WIDTH,0,5,HEIGHT));
     blocks->append(QRect(0,-5,WIDTH,5));
@@ -19,41 +23,46 @@ GameField::GameField()
 }
 
 void GameField::NextTact() {
-    QRect platform = (QRect) blocks->first();
-    int x_center = platform.x() + platform.width() / 2;
+    QRect player = (QRect) platforms->at(PLAYER);
+    int x_center = player.x() + player.width() / 2;
 
     if (dest_x>0 && dest_x < x_center)
-        movePlatformLeft();
+        movePlatformLeft(PLAYER);
     if (dest_x>0 && dest_x > x_center)
-        movePlatformRight();
+        movePlatformRight(PLAYER);
 
-/*
-    if (dir == GameField::direction::LEFT)
-        movePlatformLeft();
-
-    if (dir == GameField::direction::RIGHT)
-        movePlatformRight();
-*/
+    QRect enemy = platforms->at(ENEMY);
+    if (ball->pos.x() < enemy.x() + ball->radius)
+        movePlatformLeft(ENEMY);
+    if (ball->pos.x() > enemy.x() + enemy.width() - ball->radius)
+        movePlatformRight(ENEMY);
 
     QList<QRect>::iterator it = blocks->begin();
     while (it != blocks->end()) {
         Collision::check(ball,*it);
         it++;
     }
+
+    it = platforms->begin();
+    while (it != platforms->end()) {
+        Collision::check(ball,*it);
+        it++;
+    }
+
     ball->move();
 }
 
-void GameField::movePlatformLeft() {
-    QRect platform = blocks->first();
+void GameField::movePlatformLeft(int pos) {
+    QRect platform = platforms->at(pos);
     QRect newPlatform(platform.x() - platformDx, platform.y(), platform.width(), platform.height());
-    blocks->replace(0, newPlatform);
+    platforms->replace(pos, newPlatform);
     printf("%d %d\n",blocks->first().x(), blocks->first().y());
 }
 
-void GameField::movePlatformRight() {
-    QRect platform = blocks->first();
+void GameField::movePlatformRight(int pos) {
+    QRect platform = platforms->at(pos);
     QRect newPlatform(platform.x() + platformDx, platform.y(), platform.width(), platform.height());
-    blocks->replace(0, newPlatform);
+    platforms->replace(pos, newPlatform);
     printf("%d %d\n",blocks->first().x(), blocks->first().y());
 }
 

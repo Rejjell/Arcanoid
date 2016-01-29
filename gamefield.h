@@ -14,16 +14,17 @@ public:
     GameField();
     ~GameField();
     void NextTact();
-    void movePlatformLeft();
-    void movePlatformRight();
+    void movePlatformLeft(int pos);
+    void movePlatformRight(int pos);
 
 public:
     Ball* ball;
     QList<QRect>* blocks;
+    QList<QRect>* platforms;
     int blocks_count = 5;
     int platformDx = 5;
-    enum direction {NONE, LEFT, RIGHT};
-    direction dir = NONE;
+    const int PLAYER = 0;
+    const int ENEMY = 1;
     int dest_x = -1;
 };
 

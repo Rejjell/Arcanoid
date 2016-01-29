@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //this->setGeometry(400,300,400,400);
+
+
+    this->setGeometry(QRect(100,100,WIDTH + 20, HEIGHT + 90));
     QVBoxLayout* layout = new QVBoxLayout();
     mainWidget = new MainWidget(this);
 
@@ -19,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     layout->addWidget(mainWidget);
     layout->addWidget(btnRestart);
+
     ui->centralWidget->setLayout(layout);
 
     QTimer *timer = new QTimer(this);
