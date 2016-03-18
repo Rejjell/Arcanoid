@@ -1,7 +1,7 @@
-DEFINES       = -DUNICODE -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
-CFLAGS        = -pipe -fno-keep-inline-dllexport -g -Wall -Wextra $(DEFINES)
-
-SOURCES       = main.cpp \
+CC=g++
+MOC=moc-qt4
+CFLAGS=-Wall
+SOURCES=main.cpp \
 		mainwindow.cpp \
 		Ball.cpp \
 		Block.cpp \
@@ -9,32 +9,42 @@ SOURCES       = main.cpp \
 		mainwidget.cpp \
 		collision.cpp debug/moc_mainwindow.cpp \
 		debug/moc_mainwidget.cpp
-OBJECTS       = debug/main.o \
-		debug/mainwindow.o \
-		debug/Ball.o \
-		debug/Block.o \
-		debug/GameField.o \
-		debug/mainwidget.o \
-		debug/collision.o \
-		debug/moc_mainwindow.o \
-		debug/moc_mainwidget.o
+MOC_HEADERS=mainwindow.h \
+			gamefield.h \
+			ball.h \
+			block.h \
+			mainwidget.h \
+			constants.h \
+			collision.h
+EXECUTABLE=Arcanoid
+INCDIRS=-I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore
+LIBS=-lQtCore -lQtGui
+# Change postfixes
+MOC_SOURCES=$(MOC_HEADERS:.h=.moc.cc)
+OBJECTS=$(SOURCES:.cc=.o) $(MOC_SOURCES:.cc=.o)
 
-DIST          =  mainwindow.h \
-		gamefield.h \
-		ball.h \
-		block.h \
-		mainwidget.h \
-		constants.h \
-		collision.h main.cpp \
-		mainwindow.cpp \
-		Ball.cpp \
-		Block.cpp \
-		GameField.cpp \
-		mainwidget.cpp \
-		collision.cpp
-#DESTDIR        = debug/ #avoid trailing-slash linebreak
-TARGET         = Arcanoid.exe
-#DESTDIR_TARGET = debug/Arcanoid.exe
+all: $(EXECUTABLE)
+	@echo Done!
 
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $^ $(LIBS) -o $@
+
+# Generate object files, rule to change postfix
 %.o: %.cc
-      g++ -o $@ $<
+	$(CC) $(CFLAGS) $(INCDIRS) -c $< -o $@
+
+# Generate cc from h via Qt's Meta Object Compiler, rule to change postfix
+%.moc.cc: %.h
+	$(MOC) $(INCDIRS) $< -o $@
+
+.PHONY: tags clean
+
+clean:
+	rm *.o
+
+# Generate ctags file for all included files (autocomplete and jump to source)
+tags:
+	gcc -M $(INCDIRS) $(SOURCES) | \
+	sed -e 's/[\\ ]/\n/g' | \
+	sed -e '/^$$/d' -e '/\.o:[ \t]*$$/d' | \
+	ctags -L - --c++-kinds=+p --fields=+iaS --extra=+q
