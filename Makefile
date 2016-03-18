@@ -21,8 +21,9 @@ INCDIRS=-I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore
 LIBS=-lQtCore -lQtGui
 
 # Change postfixes
-MOC_SOURCES=$(MOC_HEADERS:.h=.moc.cc)
-OBJECTS=$(SOURCES:.cc=.o) $(MOC_SOURCES:.cc=.o)
+MOC_SOURCES=$(MOC_HEADERS:.h=.moc.cpp)
+OBJECTS=$(SOURCES:.cpp=.o) $(MOC_SOURCES:.cpp=.o)
+
 
 all: $(EXECUTABLE)
 	@echo Done!
