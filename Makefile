@@ -17,8 +17,8 @@ MOC_HEADERS=mainwindow.h \
 			constants.h \
 			collision.h
 EXECUTABLE=Arcanoid
-INCDIRS=-I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore
-LIBS=-lQtCore -lQtGui
+INCDIRS=-I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtWidgets
+LIBS=-lQtCore -lQtGui -lQtWidgets
 
 # Change postfixes
 MOC_SOURCES=$(MOC_HEADERS:.h=.moc.cpp)
