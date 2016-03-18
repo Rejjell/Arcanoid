@@ -2,3 +2,5 @@ language: cpp
 #install: make get-deps
 compiler: g++
 script: make
+before_install:
+  - sudo apt-get install libqt4-core libqt4-gui 
