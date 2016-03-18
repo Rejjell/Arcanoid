@@ -19,6 +19,7 @@ MOC_HEADERS=mainwindow.h \
 EXECUTABLE=Arcanoid
 INCDIRS=-I/usr/include/qt4 -I/usr/include/qt4/QtGui -I/usr/include/qt4/QtCore
 LIBS=-lQtCore -lQtGui
+
 # Change postfixes
 MOC_SOURCES=$(MOC_HEADERS:.h=.moc.cc)
 OBJECTS=$(SOURCES:.cc=.o) $(MOC_SOURCES:.cc=.o)
