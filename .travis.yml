@@ -4,4 +4,4 @@ compiler: g++
 script: make
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y libqt5-*
+  - sudo apt-get install -y libqt4-* libqt5widgets5
